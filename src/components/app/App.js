@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState } from 'react'
 import Initial from '../initital/Initial';
 import RoomForm from '../roomForm/RoomForm';
 import ServiceForm from '../servicesForm/ServiceForm';
@@ -13,9 +13,8 @@ function App() {
 		setStep(step);    
 	};
 
-
-
 	let renderItem;
+
 	switch(step) {
 		case 'initial':
 			renderItem = <Initial changeStep={changeStep}/>;
@@ -33,8 +32,6 @@ function App() {
 			renderItem = <Initial changeStep={changeStep}/>
 			break;
 	}
-  
-
 
 	return (
 		<div className="App">
