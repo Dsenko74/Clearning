@@ -1,7 +1,10 @@
 import { useState } from "react";
 
-const UserForm = ({changeStep}) => {
+//import {UseValidate} from "../servise/UseValidate";
+
+const UserForm = ({setStep}) => {
     const [info, setInfo] = useState({});
+    // const {errors} = UseValidate(); хтів зробити власний хук з валідації
     const [errors, setErrors] = useState({});
 
     const  validate = e => {
@@ -34,6 +37,7 @@ const UserForm = ({changeStep}) => {
                     setErrors({...errors, [e.target.name] :  null});
                 };
                 break;
+            // валідація не працює                
             case 'datte' :
                 console.log(e.target.value);
                 if (!e.target.value) {
@@ -81,7 +85,7 @@ const UserForm = ({changeStep}) => {
                         required
                         name="name"
                         value={info.name}
-                        onChange={(e, name) => onChangeInfo(e, name)}/>
+                        onChange={(e) => onChangeInfo(e)}/>
                         <br />
                     {errors.name ? <div>{errors.name}</div> : null}    
                     <input type="email"
@@ -89,7 +93,7 @@ const UserForm = ({changeStep}) => {
                         placeholder="Your e-mail"
                         name="email"
                         value={info.email}
-                        onChange={(e, name) => onChangeInfo(e, name)}/>
+                        onChange={(e) => onChangeInfo(e)}/>
                         <br />
                         {errors.email ? <div>{errors.email}</div> : null}   
                     <input type="phone"
@@ -97,7 +101,7 @@ const UserForm = ({changeStep}) => {
                         placeholder="Your phone number"
                         name="phone"
                         value={info.phone}
-                        onChange={(e, name) => onChangeInfo(e, name)}/>
+                        onChange={(e) => onChangeInfo(e)}/>
                         <br />
                     {errors.phone ? <div>{errors.phone}</div> : null}   
                     <input type="date"
@@ -105,7 +109,7 @@ const UserForm = ({changeStep}) => {
                         placeholder="date of order receipt"
                         name="datte"
                         value={info.datte}
-                        onChange={(e, name) => onChangeInfo(e, name)}/>
+                        onChange={(e) => onChangeInfo(e)}/>
                         <br />
                     {errors.datte ? <div>{errors.datte}</div> : null}   
                     <textarea 
@@ -113,7 +117,7 @@ const UserForm = ({changeStep}) => {
                         name="comments" 
                         placeholder="Your comments"
                         value={info.comment}
-                        onChange={(e, name) => onChangeInfo(e, name)}/>
+                        onChange={(e) => onChangeInfo(e)}/>
                     {errors.comments ? <div>{errors.comments}</div> : null}  
 
                     <button type="submit"
@@ -121,7 +125,7 @@ const UserForm = ({changeStep}) => {
                             onClick={onSubmit}>Додати</button>
                 </form>
             <button
-                onClick={() => changeStep('userForm')}>Замовити прибирання, інформація з данними є в консолі</button>
+                onClick={() => setStep('userForm')}>Замовити прибирання, інформація з данними є в консолі</button>
         </div>
     )
     }

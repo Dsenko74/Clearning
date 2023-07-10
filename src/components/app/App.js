@@ -3,41 +3,49 @@ import Initial from '../initital/Initial';
 import RoomForm from '../roomForm/RoomForm';
 import ServiceForm from '../servicesForm/ServiceForm';
 import UserForm from '../userForm/UserForm';
-import './App.css';
+import './App.scss';
 
 function App() {
-
 	const [step, setStep] = useState('initial');
+	const [privacyPolicy, setPrivacyPolicy] = useState({});
+	const [roomData, setRoomData] = useState({});
 
-	const changeStep = (step) => {
-		setStep(step);    
-	};
-
-	let renderItem;
-
-	switch(step) {
-		case 'initial':
-			renderItem = <Initial changeStep={changeStep}/>;
-			break;
-		case 'serviceForm':
-			renderItem = <ServiceForm changeStep={changeStep}/>
-			break;
-		case 'roomForm': 
-			renderItem = <RoomForm changeStep={changeStep}/>
-			break;
-		case 'userForm'	:
-			renderItem = <UserForm changeStep={changeStep}/>
-			break;
-		default:
-			renderItem = <Initial changeStep={changeStep}/>
-			break;
+	const onChangePrivacyPolicy = (value) => {
+		setPrivacyPolicy({...privacyPolicy, ...value});
 	}
+
+	const onChangeRoomData = (values) => {
+		setRoomData({...roomData, ...values});
+	}
+	let renderItem;
+		switch(step) {
+			case 'initial':
+				renderItem = <Initial 
+								setStep={setStep}
+								onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
+				break;
+			case 'serviceForm':
+				renderItem = <ServiceForm setStep={setStep}/>;
+				break;
+			case 'roomForm': 
+				renderItem = <RoomForm 
+								setStep={setStep}
+								onChangeRoomData={onChangeRoomData}
+								/>;
+				break;
+			case 'userForm'	:
+				renderItem = <UserForm setStep={setStep}/>;
+				break;
+			default:
+				renderItem = <Initial setStep={setStep}/>;
+				break;
+		}
 
 	return (
 		<div className="App">
 		{renderItem}
 		</div>
 	);
-	}
+}
 
 export default App;
