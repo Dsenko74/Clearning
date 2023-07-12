@@ -1,13 +1,14 @@
-import { Formik, Form, Field, ErrorMessage,useField } from 'formik';
+import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import * as Yup from 'yup'
 
 
-const MyTextInput = ({label, ...props}) => {
+export const MyTextInput = ({children, label,...props}) => {
     const [field, meta] = useField(props);
     return (
         <>
             <label htmlFor={props.name}>{label}</label>
             <input {...props} {...field}/>
+            {children}
             {meta.touched && meta.error ? (
                 <div className='error'>{meta.error}</div>
             ) : null}
@@ -75,7 +76,7 @@ const RoomForm = ({setStep, onChangeRoomData}) => {
                     type="number"
                 />
                 <MyTextInput
-                    label='Загальна пошта, кв.м.'
+                    label='Загальна площа, кв.м.'
                     id="totalArea"
                     name="totalArea"
                     type="number"
