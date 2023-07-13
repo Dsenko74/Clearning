@@ -1,9 +1,9 @@
-import {useState } from 'react'
-import Initial from '../initital/Initial';
-import RoomForm from '../roomForm/RoomForm';
-import ServiceForm from '../servicesForm/ServiceForm';
-import UserForm from '../userForm/UserForm';
-import Finalize from '../finalize/Finalize';
+import { useState } from 'react'
+import  Initial  from '../Initital';
+import  RoomForm  from '../RoomForm';
+import  ServiceForm  from '../ServicesForm';
+import 	UserForm  from '../UserForm';
+import  Finalize  from '../Finalize';
 import './App.scss';
 
 function App() {
@@ -13,20 +13,23 @@ function App() {
 	const [serviceData, setServiceData] = useState({});
 	const [userData, setUserData] = useState({});
 
-
 	const onChangePrivacyPolicy = (value) => {
+		setStep('roomForm');
 		setPrivacyPolicy({...privacyPolicy, ...value});
 	}
 
 	const onChangeRoomData = (values) => {
+		setStep('serviceForm');
 		setRoomData({...roomData, ...values});
 	}
 
 	const onChangeServiceData = (values) => {
+		setStep('userForm');
 		setServiceData({...serviceData, ...values});
 	}
 
 	const onChangeUserData = (values) => {
+		setStep('finalize');
 		setUserData({...userData, ...values});
 	}
 
@@ -34,23 +37,19 @@ function App() {
 		switch(step) {
 			case 'initial':
 				renderItem = <Initial 
-								setStep={setStep}
-								onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
+												onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
 				break;
 			case 'roomForm': 
 				renderItem = <RoomForm 
-								setStep={setStep}
-								onChangeRoomData={onChangeRoomData}/>;
+												onChangeRoomData={onChangeRoomData}/>;
 				break;
 			case 'serviceForm':
 				renderItem = <ServiceForm 
-								setStep={setStep}
-								onChangeServiceData={onChangeServiceData}/>;
+												onChangeServiceData={onChangeServiceData}/>;
 				break;
 			case 'userForm'	:
 				renderItem = <UserForm 
-								setStep={setStep}
-								onChangeUserData={onChangeUserData}/>;
+												onChangeUserData={onChangeUserData}/>;
 				break;
 			case 'finalize'	:
 				renderItem = <Finalize 
