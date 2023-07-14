@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import  Initial  from '../Initital';
 import  RoomForm  from '../RoomForm';
 import  ServiceForm  from '../ServicesForm';
 import 	UserForm  from '../UserForm';
 import  Finalize  from '../Finalize';
+import GetCurrencyValue from '../servise/GetCurrencyValue';
 import './App.scss';
 
 function App() {
@@ -12,6 +13,14 @@ function App() {
 	const [roomData, setRoomData] = useState({});
 	const [serviceData, setServiceData] = useState({});
 	const [userData, setUserData] = useState({});
+	const [currency, setCurrency] = useState('USD');
+	const [currencyValue, setCurrencyValue] = useState({});
+
+	useEffect(() => {
+		GetCurrencyValue(setCurrencyValue, currency)
+
+		
+	}, [currency]);
 
 	const onChangePrivacyPolicy = (value) => {
 		setStep('roomForm');
@@ -37,7 +46,8 @@ function App() {
 		switch(step) {
 			case 'initial':
 				renderItem = <Initial 
-												onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
+												onChangePrivacyPolicy={onChangePrivacyPolicy}
+												setCurrency={setCurrency}/>;
 				break;
 			case 'roomForm': 
 				renderItem = <RoomForm 
@@ -61,6 +71,7 @@ function App() {
 				break;	
 			default:
 				renderItem = <Initial 
+								setCurrency={setCurrency}
 								setStep={setStep}/>;
 				break;
 		}
@@ -68,6 +79,12 @@ function App() {
 	return (
 		<div className="App">
 		{renderItem}
+		{/* <Finalize 
+								setStep={setStep}
+								roomData={roomData}
+								serviceData={serviceData}
+								userData={userData}
+								/> */}
 		</div>
 	);
 }
