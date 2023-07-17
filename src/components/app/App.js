@@ -13,7 +13,7 @@ function App() {
 	const [roomData, setRoomData] = useState({});
 	const [serviceData, setServiceData] = useState({});
 	const [userData, setUserData] = useState({});
-	const [currency, setCurrency] = useState('USD');
+	const [currency, setCurrency] = useState('');
 	const [currencyValue, setCurrencyValue] = useState({});
 
 	useEffect(() => {
@@ -67,6 +67,8 @@ function App() {
 								roomData={roomData}
 								serviceData={serviceData}
 								userData={userData}
+								currency={currency}
+								currencyValue={currencyValue}
 								/>;
 				break;	
 			default:

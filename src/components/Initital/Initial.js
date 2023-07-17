@@ -1,6 +1,6 @@
 import { Formik, Form, Field} from 'formik';
 import * as Yup from 'yup'
-import  MyCheckbox from '../MyCheckbox_';
+import  MyCheckbox from '../MyCheckbox';
 
 const YupShema = Yup.object({
   privacyPolicy: Yup.boolean()
