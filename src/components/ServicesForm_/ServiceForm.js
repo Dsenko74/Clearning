@@ -1,6 +1,6 @@
 import { Formik, Form, } from 'formik';
 import * as Yup from 'yup'
-import MyTextInput from '../MyTextInput';
+import MyTextInput from '../MyTextInput_';
 
 const YupShema = Yup.object({
   bathRoomNumder: Yup.number()
@@ -16,7 +16,7 @@ const YupShema = Yup.object({
           .max(10, "У вас  вікон менше")
           .required("Обов'язкове поле"),
 })
-const ServiceForm = ({setStep, onChangeServiceData}) => {
+const ServiceForm = ({onChangeServiceData}) => {
   return (
     <Formik
     initialValues = {{
@@ -25,9 +25,7 @@ const ServiceForm = ({setStep, onChangeServiceData}) => {
       removePellicle: "",
     }}
     validationSchema = {YupShema}
-    onSubmit = {values => {
-      onChangeServiceData(values);
-    }}
+    onSubmit = {onChangeServiceData}
     >
       {formikProps => (
         <Form className="form">  

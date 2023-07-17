@@ -1,26 +1,8 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
-import  MyCheckbox  from '../MyCheckbox';
-// let value ={};
+import  MyCheckbox  from '../MyCheckbox_';
+
 const Finalize = ({setStep, roomData, serviceData, userData}) => {
-//   const getCurrencyValue = async () => {
-//     fetch ('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchangenew?json')
-//     .then(res => res.json())
-//     .then(json => {
-//       //value = json.filter(item => item.cc === 'USD')
-//       value = json;
-//       console.log(value);
-//       console.log(`це value в середені fetch ${value[0].rate}`)
-//       return value})
-//     .then(onValue)
-//     .catch(e =>  {throw e})
-//     .finally(console.log(`It\`s working`));
-//   }
-// let x = 1;
-// const onValue = (value) =>{
-//   x = value.filter(item => item.cc === 'USD');
-//   console.log(`в середені onValue  ${x[0].rate}}`)
-// }
 
   return (
     <Formik

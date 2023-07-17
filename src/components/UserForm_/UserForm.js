@@ -1,6 +1,6 @@
 import { Formik, Form, } from 'formik';
 import * as Yup from 'yup'
-import MyTextInput from '../MyTextInput';
+import MyTextInput from '../MyTextInput_';
 
 const YupShema = Yup.object({
   name: Yup.string()

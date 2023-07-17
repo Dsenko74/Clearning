@@ -1,6 +1,6 @@
 import { Formik, Form, Field} from 'formik';
 import * as Yup from 'yup'
-import  MyCheckbox from '../MyCheckbox';
+import  MyCheckbox from '../MyCheckbox_';
 
 const YupShema = Yup.object({
   privacyPolicy: Yup.boolean()
@@ -11,9 +11,7 @@ const YupShema = Yup.object({
 const Initial = ({onChangePrivacyPolicy, setCurrency}) => {
 
   const handleSubmit = (values) => {
-    onChangePrivacyPolicy(values.privacyPolicy);
-    console.log(values.typeOfCurrency);
-    setCurrency(values.typeOfCurrency)
+    onChangePrivacyPolicy(values);
   }
   return (
     <Formik
@@ -22,7 +20,6 @@ const Initial = ({onChangePrivacyPolicy, setCurrency}) => {
       privacyPolicy: false 
     }}
     validationSchema = {YupShema}
-    // onSubmit = {values => onChangePrivacyPolicy(values)}
     onSubmit = {handleSubmit}
    >
       <Form className="form">  

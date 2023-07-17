@@ -4,12 +4,12 @@ import  RoomForm  from '../RoomForm';
 import  ServiceForm  from '../ServicesForm';
 import 	UserForm  from '../UserForm';
 import  Finalize  from '../Finalize';
-import GetCurrencyValue from '../servise/GetCurrencyValue';
+import getCurrencyValue from '../servise/GetCurrencyValue';
 import './App.scss';
 
 function App() {
 	const [step, setStep] = useState('initial');
-	const [privacyPolicy, setPrivacyPolicy] = useState({});
+	const [privacyPolicy, setPrivacyPolicy] = useState(false);
 	const [roomData, setRoomData] = useState({});
 	const [serviceData, setServiceData] = useState({});
 	const [userData, setUserData] = useState({});
@@ -17,17 +17,18 @@ function App() {
 	const [currencyValue, setCurrencyValue] = useState({});
 
 	useEffect(() => {
-		GetCurrencyValue(setCurrencyValue, currency)
+		getCurrencyValue()
+			.then(res => setCurrencyValue(res));
+	}, []);
 
-		
-	}, [currency]);
-
-	const onChangePrivacyPolicy = (value) => {
+	const onChangePrivacyPolicy = (values) => {
 		setStep('roomForm');
-		setPrivacyPolicy({...privacyPolicy, ...value});
+		setPrivacyPolicy(values.privacyPolicy);
+		setCurrency(values.typeOfCurrency)
 	}
 
 	const onChangeRoomData = (values) => {
+		console.log(`onChangeRoomData`)
 		setStep('serviceForm');
 		setRoomData({...roomData, ...values});
 	}
@@ -46,8 +47,7 @@ function App() {
 		switch(step) {
 			case 'initial':
 				renderItem = <Initial 
-												onChangePrivacyPolicy={onChangePrivacyPolicy}
-												setCurrency={setCurrency}/>;
+												onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
 				break;
 			case 'roomForm': 
 				renderItem = <RoomForm 
@@ -78,13 +78,7 @@ function App() {
 
 	return (
 		<div className="App">
-		{renderItem}
-		{/* <Finalize 
-								setStep={setStep}
-								roomData={roomData}
-								serviceData={serviceData}
-								userData={userData}
-								/> */}
+			{renderItem}
 		</div>
 	);
 }

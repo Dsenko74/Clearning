@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage, } from 'formik';
 import * as Yup from 'yup'
-import MyTextInput from '../MyTextInput';
-import MyCheckbox from '../MyCheckbox';
+import MyTextInput from '../MyTextInput_';
+import MyCheckbox from '../MyCheckbox_';
 
 const YupShema = Yup.object({
   roomNumber: Yup.number()
@@ -21,7 +21,7 @@ const YupShema = Yup.object({
           .oneOf([true], "Потрібна згода"),
     });
 
-const RoomForm = ({setStep, onChangeRoomData}) => {
+const RoomForm = ({onChangeRoomData}) => {
   return (
     <Formik
     initialValues = {{
@@ -32,10 +32,7 @@ const RoomForm = ({setStep, onChangeRoomData}) => {
       terms: false 
     }}
     validationSchema =  {YupShema}
-    onSubmit = {values => {
-      onChangeRoomData(values);
-      console.log(`Кількість кімнат: ${values.roomNumber}, Загальна площа: ${values.totalArea} кв.м., Тип прибирання: ${values.typeOfCleaning}`);
-    }}
+    onSubmit = {onChangeRoomData}
     >
       <Form className="form">  
         <h2>Заповніть основні параметри</h2>
