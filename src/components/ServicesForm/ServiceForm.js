@@ -1,22 +1,45 @@
+import { useEffect } from 'react';
 import { Formik, Form, } from 'formik';
 import * as Yup from 'yup'
 import MyTextInput from '../MyTextInput';
+import i18n from '../locales/i18n';
+import { useTranslation } from 'react-i18next'
 
-const YupShema = Yup.object({
-  bathRoomNumder: Yup.number()
-          .min(1, "Щось мусимо ж прибрати?")
-          .max(10, "Чи не дофіга у вас кімнат?")
-          .required("Обов'язкове поле"),
-  windowNumber: Yup.number()
-          .min(1, "Щось мусимо ж прибрати?")
-          .max(10, "У вас  вікон менше")
-          .required("Обов'язкове поле"),
-  removePellicle: Yup.number()
-          .min(1, "Щось мусимо ж прибрати?")
-          .max(10, "У вас  вікон менше")
-          .required("Обов'язкове поле"),
-})
-const ServiceForm = ({onChangeServiceData}) => {
+const YupShema = (lng) => {
+  const { t, i18n } = useTranslation();
+  
+  useEffect(() => {
+    changeLanguage(lng)
+    }, [lng]);
+
+  const changeLanguage = (value) => {
+    i18n.changeLanguage(value);
+  };
+  return Yup.object({
+    bathRoomNumder: Yup.number()
+            .min(1, t("what clean"))
+            .max(5, t("how many toilet"))
+            .required(t("required")),
+    windowNumber: Yup.number()
+            .min(1, t("what clean"))
+            .max(10, t("how many window"))
+            .required(t("required")),
+    removePellicle: Yup.number()
+            .min(1, t("what clean"))
+            .max(10,  t("how many window"))
+            .required(t("required")),
+  })
+} 
+const ServiceForm = ({lng, onChangeServiceData}) => {
+  const { t, i18n } = useTranslation();
+  
+  useEffect(() => {
+    changeLanguage(lng)
+    }, [lng]);
+
+  const changeLanguage = (value) => {
+    i18n.changeLanguage(value);
+  };
   return (
     <Formik
     initialValues = {{
@@ -24,36 +47,36 @@ const ServiceForm = ({onChangeServiceData}) => {
       windowNumber: "",
       removePellicle: "",
     }}
-    validationSchema = {YupShema}
+    validationSchema = {YupShema(lng)}
     onSubmit = {onChangeServiceData}
     >
       {formikProps => (
         <Form className="form">  
-          <h2>Додаткові послуги</h2>
+          <h2>{t("additional services")}</h2>
           <MyTextInput
-            label='Прибирання санвузів'
+            label={t("cleaning bathrooms")}
             id="bathRoomNumder"
             name="bathRoomNumder"
             type="number">
-            <div>`Вартість прибирання санвузлів {formikProps.values.bathRoomNumder * 150} грн.'</div>
+            <div>`{t("The cost of cleaning bathrooms")} {formikProps.values.bathRoomNumder * 150} {t("uah")}'</div>
           </MyTextInput>
           <MyTextInput
-            label='Миття вікон'
+            label={t("Window washing")}
             id="windowNumber"
             name="windowNumber"
             type="number">
-            <div>`Вартість миття всіх вікон {formikProps.values.windowNumber * 100} грн.'</div>
+            <div>`{t("The cost of washing all windows")} {formikProps.values.windowNumber * 100} {t("uah")}'</div>
           </MyTextInput>
           <MyTextInput
-            label='Видалення прикипілої плівки з віконних рам'
+            label={t("removePellicle")}
             id="removePellicle"
             name="removePellicle"
             type="number">
-            <div>`Вартість видалення плівки з {formikProps.values.removePellicle} вікон складає {formikProps.values.removePellicle * 200} грн.'</div>
+            <div>`{t("costRemovePellicle")} {formikProps.values.removePellicle} {t("ofWindow")} {formikProps.values.removePellicle * 200} {"uah"}'</div>
           </MyTextInput>
           <button className='button button_long'
             type="submit"
-            >відправити та перейти на наступний крок</button>
+            >{t("submit")}</button>
         </Form>
       )}
     </Formik>

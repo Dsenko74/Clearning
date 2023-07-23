@@ -1,20 +1,45 @@
+import { useEffect } from 'react';
 import { Formik, Form, } from 'formik';
 import * as Yup from 'yup'
 import MyTextInput from '../MyTextInput';
+import i18n from '../locales/i18n';
+import { useTranslation } from 'react-i18next'
 
-const YupShema = Yup.object({
-  name: Yup.string()
-    .required("Обов'язкове поле")
-    .min(3, 'Не менше 3 символів'),
-  email: Yup.string()
-    .email('Невірна email адреса')
-    .required("Обов'язкове поле"),
-  phone:  Yup.string()
-      .matches(/^\+?[1-9]\d{9}$/, 'Номер телефона недійсний')
-      .required('Номер телефона обов\'язковий')
+const YupShema = (lng) => {
+  const { t, i18n } = useTranslation();
+  
+  useEffect(() => {
+    changeLanguage(lng)
+    }, [lng]);
 
-})
-const UserForm = ({onChangeUserData}) => {
+  const changeLanguage = (value) => {
+    i18n.changeLanguage(value);
+  };
+  return (Yup.object({
+    name: Yup.string()
+      .required(t("required"))
+      .min(3, t("min3Symbol")),
+    email: Yup.string()
+      .email(t("wrongEmail"))
+      .required(t("required")),
+    phone:  Yup.string()
+        .matches(/^\+?[1-9]\d{9}$/, t("wrongPhone"))
+        .required(t("requiredPhone"))
+  
+  })
+
+  )
+}
+const UserForm = ({lng, onChangeUserData}) => {
+  const { t, i18n } = useTranslation();
+  
+  useEffect(() => {
+    changeLanguage(lng)
+    }, [lng]);
+
+  const changeLanguage = (value) => {
+    i18n.changeLanguage(value);
+  };
   return (
     <Formik
       initialValues = {{
@@ -23,34 +48,34 @@ const UserForm = ({onChangeUserData}) => {
         email: "",
         date: ""
       }}
-      validationSchema = {YupShema}
+      validationSchema = {YupShema(lng)}
       onSubmit = {values => onChangeUserData(values)}
     >
       <Form className="form">  
-        <h2>Заповніть ваші дані</h2>
+        <h2>{t("fillDetails")}</h2>
         <MyTextInput
-          label='Ваше імя'
+          label={t("name")}
           id="name"
           name="name"
           type="string" />
         <MyTextInput
-          label='номер мобільного телефону'
+          label={t("phoneNumber")}
           id="phone"
           name="phone"
           type="phone" />
         <MyTextInput
-          label='Ваш email'
+          label={t("email")}
           id="email"
           name="email"
           type="string" />
         <MyTextInput
-          label='Дата прибирання'
+          label={t("date")}
           id="date"
           name="date"
           type="date" />
         <button className='button button_long'
           type="submit"
-          >замовити прибирання</button>
+          >{t("orderCleaning")}</button>
       </Form>
     </Formik>
   )

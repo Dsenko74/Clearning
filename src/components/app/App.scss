@@ -20,15 +20,18 @@
     background-color: #fff;
     border-radius: 3px;
     //box-shadow: 0 9px 23px 0 rgb(0 0 0 / 3%);
+    &__header {
+        min-height: 100px;
+    }
     h2 {
         text-align: center;
         font-size: 28px;
-        text-transform: uppercase;
+       // text-transform: uppercase;
     }
     h3 {
       text-align: center;
       font-size: 28px;
-      text-transform: uppercase;
+      //text-transform: uppercase;
     }
     label {
         display: block;
@@ -64,6 +67,11 @@
         cursor: pointer;
         &:focus {
             outline: 1px solid #f57507;
+        }
+        &.sm {
+            height: 20px;
+            width: 70px;
+            margin-left: 550px;
         }
     }
     textarea {
