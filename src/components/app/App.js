@@ -5,7 +5,6 @@ import  RoomForm  from '../RoomForm';
 import  ServiceForm  from '../ServicesForm';
 import 	UserForm  from '../UserForm';
 import  Finalize  from '../Finalize';
-//import Currency from '../Currency';
 import getCurrencyValue from '../servise/GetCurrencyValue';
 import './App.scss';
 

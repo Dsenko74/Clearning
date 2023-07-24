@@ -47,10 +47,7 @@ const Initial = ({lng, onChangePrivacyPolicy, setCurrency}) => {
 
   return (
     <Formik
-    initialValues = {{
-      typeOfCurrency: '',
-      privacyPolicy: false 
-    }}
+    initialValues = {initialValues}
     validationSchema = {YupShema(lng)}
     onSubmit = {handleSubmit}
    >
