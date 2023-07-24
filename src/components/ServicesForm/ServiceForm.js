@@ -5,6 +5,12 @@ import MyTextInput from '../MyTextInput';
 import i18n from '../locales/i18n';
 import { useTranslation } from 'react-i18next'
 
+const initialValues = {
+  bathRoomNumder: "",
+  windowNumber: "",
+  removePellicle: "",
+};
+
 const YupShema = (lng) => {
   const { t, i18n } = useTranslation();
   
@@ -29,12 +35,6 @@ const YupShema = (lng) => {
             .max(10,  t("how many window"))
             .required(t("required")),
   })
-} 
-
-const initialValues = {
-  bathRoomNumder: "",
-  windowNumber: "",
-  removePellicle: "",
 }
 
 const ServiceForm = ({lng, onChangeServiceData}) => {

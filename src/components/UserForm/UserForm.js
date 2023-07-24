@@ -5,6 +5,13 @@ import MyTextInput from '../MyTextInput';
 import i18n from '../locales/i18n';
 import { useTranslation } from 'react-i18next'
 
+const initialValues = {
+  name: "",
+  phone: "",
+  email: "",
+  date: ""
+}
+
 const YupShema = (lng) => {
   const { t, i18n } = useTranslation();
   
@@ -15,7 +22,7 @@ const YupShema = (lng) => {
   const changeLanguage = (value) => {
     i18n.changeLanguage(value);
   };
-  return (Yup.object({
+  return Yup.object({
     name: Yup.string()
       .required(t("required"))
       .min(3, t("min3Symbol")),
@@ -25,17 +32,7 @@ const YupShema = (lng) => {
     phone:  Yup.string()
         .matches(/^\+?[1-9]\d{9}$/, t("wrongPhone"))
         .required(t("requiredPhone"))
-  
   })
-
-  )
-}
-
-const initialValues = {
-  name: "",
-  phone: "",
-  email: "",
-  date: ""
 }
 
 const UserForm = ({lng, onChangeUserData}) => {

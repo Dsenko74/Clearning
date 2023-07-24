@@ -6,6 +6,14 @@ import MyCheckbox from '../MyCheckbox';
 import i18n from '../locales/i18n';
 import { useTranslation } from 'react-i18next';
 
+const initialValues = {
+  roomNumber: "",
+  totalArea: "",
+  typeOfCleaning: "" ,
+  addWishes: "",
+  terms: false 
+};
+
 const YupShema = (lng) => {
   const { t, i18n } = useTranslation();
   
@@ -34,13 +42,6 @@ const YupShema = (lng) => {
               .required(t("consent is required"))
               .oneOf([true], t("consent is required")),
         });
-}
-const initialValues = {
-  roomNumber: "",
-  totalArea: "",
-  typeOfCleaning: "" ,
-  addWishes: "",
-  terms: false 
 };
 
 const RoomForm = ({lng, onChangeRoomData}) => {
