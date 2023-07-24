@@ -34,8 +34,14 @@ const YupShema = (lng) => {
               .required(t("consent is required"))
               .oneOf([true], t("consent is required")),
         });
-  
 }
+const initialValues = {
+  roomNumber: "",
+  totalArea: "",
+  typeOfCleaning: "" ,
+  addWishes: "",
+  terms: false 
+};
 
 const RoomForm = ({lng, onChangeRoomData}) => {
   const { t, i18n } = useTranslation();
@@ -50,13 +56,7 @@ const RoomForm = ({lng, onChangeRoomData}) => {
 
   return (
     <Formik
-    initialValues = {{
-      roomNumber: "",
-      totalArea: "",
-      typeOfCleaning: "" ,
-      addWishes: "",
-      terms: false 
-    }}
+    initialValues = {initialValues}
     validationSchema =  {YupShema(lng)}// подумати над своєчасним оновленням lng
     onSubmit = {onChangeRoomData}
     >

@@ -30,6 +30,14 @@ const YupShema = (lng) => {
 
   )
 }
+
+const initialValues = {
+  name: "",
+  phone: "",
+  email: "",
+  date: ""
+}
+
 const UserForm = ({lng, onChangeUserData}) => {
   const { t, i18n } = useTranslation();
   
@@ -42,12 +50,7 @@ const UserForm = ({lng, onChangeUserData}) => {
   };
   return (
     <Formik
-      initialValues = {{
-        name: "",
-        phone: "",
-        email: "",
-        date: ""
-      }}
+      initialValues = {initialValues}
       validationSchema = {YupShema(lng)}
       onSubmit = {values => onChangeUserData(values)}
     >

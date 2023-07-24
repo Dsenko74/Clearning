@@ -30,6 +30,13 @@ const YupShema = (lng) => {
             .required(t("required")),
   })
 } 
+
+const initialValues = {
+  bathRoomNumder: "",
+  windowNumber: "",
+  removePellicle: "",
+}
+
 const ServiceForm = ({lng, onChangeServiceData}) => {
   const { t, i18n } = useTranslation();
   
@@ -42,11 +49,7 @@ const ServiceForm = ({lng, onChangeServiceData}) => {
   };
   return (
     <Formik
-    initialValues = {{
-      bathRoomNumder: "",
-      windowNumber: "",
-      removePellicle: "",
-    }}
+    initialValues = {initialValues}
     validationSchema = {YupShema(lng)}
     onSubmit = {onChangeServiceData}
     >

@@ -31,60 +31,55 @@ function App() {
 	}, []);
 
 	const onChangeRoomData = useCallback((values) => {
-		console.log(`onChangeRoomData`)
 		setStep('serviceForm');
 		setRoomData({...roomData, ...values});
-	}, []);
+	}, [roomData]);
 
 	const onChangeServiceData = useCallback((values) => {
-		console.log(`onChangeServiceData`)
 		setStep('userForm');
 		setServiceData({...serviceData, ...values});
-	}, [])
+	}, [serviceData])
 
 	const onChangeUserData = useCallback((values) => {
-		console.log(`onChangeUserData`);
 		setStep('finalize');
 		setUserData({...userData, ...values});
-	}, [])
+	}, [userData])
 	
 	const RenderComponent = useMemo(() => {
 		switch(step) {
 			case 'initial':
 				return <Initial 
-												lng={lng}
-												onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
+									lng={lng}
+									onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
 			case 'roomForm': 
 				return <RoomForm 
-												lng={lng}
-												onChangeRoomData={onChangeRoomData}/>;
+									lng={lng}
+									onChangeRoomData={onChangeRoomData}/>;
 			case 'serviceForm':
 				return <ServiceForm 
-												lng={lng}
-												onChangeServiceData={onChangeServiceData}/>;
+									lng={lng}
+									onChangeServiceData={onChangeServiceData}/>;
 			case 'userForm'	:
 				return <UserForm 
-												lng={lng}
-												onChangeUserData={onChangeUserData}/>;
+									lng={lng}
+									onChangeUserData={onChangeUserData}/>;
 			case 'finalize'	:
 				return <Finalize 
-								setStep={setStep}
-								lng={lng}
-								roomData={roomData}
-								serviceData={serviceData}
-								userData={userData}
-								currency={currency}
-								currencyValue={currencyValue}
-								/>;
+									setStep={setStep}
+									lng={lng}
+									roomData={roomData}
+									serviceData={serviceData}
+									userData={userData}
+									currency={currency}
+									currencyValue={currencyValue}
+									/>;
 			default:
 				return <Initial 
-								lng={lng}
-								setCurrency={setCurrency}
-								setStep={setStep}/>;
+									lng={lng}
+									setCurrency={setCurrency}
+									setStep={setStep}/>;
 		}
 	}, [step, lng]);
-	
-
 
 	return (
 		<div className="App">

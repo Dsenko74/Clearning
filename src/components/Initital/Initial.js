@@ -5,6 +5,11 @@ import  MyCheckbox from '../MyCheckbox';
 import i18n from '../locales/i18n';
 import { useTranslation } from 'react-i18next';
 
+const initialValues = {
+  typeOfCurrency: '',
+  privacyPolicy: false 
+}
+
 const YupShema = (lng) => {
   const { t, i18n } = useTranslation();
   
@@ -39,6 +44,7 @@ const Initial = ({lng, onChangePrivacyPolicy, setCurrency}) => {
   const handleSubmit = (values) => {
     onChangePrivacyPolicy(values);
   }
+
   return (
     <Formik
     initialValues = {{
