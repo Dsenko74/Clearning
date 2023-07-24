@@ -8,22 +8,23 @@ const YupShema = Yup.object({
                   .oneOf([true], "Потрібна згода"),
 });
 
+const initialValues = {
+  typeOfCurrency: '',
+  privacyPolicy: false 
+}
+
+
 const Initial = ({onChangePrivacyPolicy, setCurrency}) => {
 
   const handleSubmit = (values) => {
     onChangePrivacyPolicy(values);
   }
 
-  const initialValues = {
-    typeOfCurrency: '',
-    privacyPolicy: false 
-  }
-
   return (
     <Formik
-    initialValues = {initialValues}
-    validationSchema = {YupShema}
-    onSubmit = {handleSubmit}
+    initialValues={initialValues}
+    validationSchema={YupShema}
+    onSubmit={handleSubmit}
    >
       <Form className="form">  
         <h2>Розрахувати приблизну вартість прибирання initial</h2>

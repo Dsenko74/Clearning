@@ -3,6 +3,14 @@ import * as Yup from 'yup'
 import MyTextInput from '../MyTextInput';
 import MyCheckbox from '../MyCheckbox';
 
+const initialValues = {
+  roomNumber: "",
+  totalArea: "",
+  typeOfCleaning: "" ,
+  addWishes: "",
+  terms: false 
+}
+
 const YupShema = Yup.object({
   roomNumber: Yup.number()
           .min(1, "Щось мусимо ж прибрати?")
@@ -21,13 +29,7 @@ const YupShema = Yup.object({
           .oneOf([true], "Потрібна згода"),
     });
 
-  const initialValues = {
-    roomNumber: "",
-    totalArea: "",
-    typeOfCleaning: "" ,
-    addWishes: "",
-    terms: false 
-  }
+
 
 const RoomForm = ({onChangeRoomData}) => {
   return (

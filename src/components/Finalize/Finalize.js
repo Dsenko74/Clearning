@@ -3,12 +3,13 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 import  MyCheckbox  from '../MyCheckbox';
 
+const initialValues = {
+  privacyPolicy: false 
+}
+
 const Finalize = ({setStep, roomData, serviceData, userData, currency, currencyValue}) => {
   const  totalResult = useMemo(() => serviceData.bathRoomNumder * 150 + serviceData.removePellicle * 200 + serviceData.windowNumber *250, [serviceData]);
-  const totalResultEquivalent = useMemo(() => (Math.round(totalResult * 100/ (currencyValue.filter(item => item.cc === currency))[0].rate)) / 100, [currency])
-  const initialValues = {
-    privacyPolicy: false 
-  }
+  const totalResultEquivalent = useMemo(() => (Math.round(totalResult * 100/ (currencyValue.filter(item => item.cc === currency))[0].rate)) / 100, [currency, totalResult, currencyValue]);
 
   return (
     <Formik
