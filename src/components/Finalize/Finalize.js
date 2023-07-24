@@ -1,16 +1,18 @@
+import { useMemo } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 import  MyCheckbox  from '../MyCheckbox';
 
 const Finalize = ({setStep, roomData, serviceData, userData, currency, currencyValue}) => {
-  let totalResult = serviceData.bathRoomNumder * 150 + serviceData.removePellicle * 200 + serviceData.windowNumber *250;
-  let totalResultEquivalent = (Math.round(totalResult * 100/ (currencyValue.filter(item => item.cc === currency))[0].rate)) / 100;
+  const  totalResult = useMemo(() => serviceData.bathRoomNumder * 150 + serviceData.removePellicle * 200 + serviceData.windowNumber *250, [serviceData]);
+  const totalResultEquivalent = useMemo(() => (Math.round(totalResult * 100/ (currencyValue.filter(item => item.cc === currency))[0].rate)) / 100, [currency])
+  const initialValues = {
+    privacyPolicy: false 
+  }
 
   return (
     <Formik
-      initialValues = {{
-        privacyPolicy: false 
-      }}
+      initialValues = { initialValues}
       validationSchema = {Yup.object({
         privacyPolicy: Yup.boolean()
                         .required("Потрібна згода")

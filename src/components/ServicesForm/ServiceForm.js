@@ -16,14 +16,17 @@ const YupShema = Yup.object({
           .max(10, "У вас  вікон менше")
           .required("Обов'язкове поле"),
 })
+
+const initialValues = {
+  bathRoomNumder: "",
+  windowNumber: "",
+  removePellicle: "",
+}
+
 const ServiceForm = ({onChangeServiceData}) => {
   return (
     <Formik
-    initialValues = {{
-      bathRoomNumder: "",
-      windowNumber: "",
-      removePellicle: "",
-    }}
+    initialValues = {initialValues}
     validationSchema = {YupShema}
     onSubmit = {onChangeServiceData}
     >

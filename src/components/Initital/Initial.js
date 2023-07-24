@@ -13,12 +13,15 @@ const Initial = ({onChangePrivacyPolicy, setCurrency}) => {
   const handleSubmit = (values) => {
     onChangePrivacyPolicy(values);
   }
+
+  const initialValues = {
+    typeOfCurrency: '',
+    privacyPolicy: false 
+  }
+
   return (
     <Formik
-    initialValues = {{
-      typeOfCurrency: '',
-      privacyPolicy: false 
-    }}
+    initialValues = {initialValues}
     validationSchema = {YupShema}
     onSubmit = {handleSubmit}
    >

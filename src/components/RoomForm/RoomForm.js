@@ -21,16 +21,18 @@ const YupShema = Yup.object({
           .oneOf([true], "Потрібна згода"),
     });
 
+  const initialValues = {
+    roomNumber: "",
+    totalArea: "",
+    typeOfCleaning: "" ,
+    addWishes: "",
+    terms: false 
+  }
+
 const RoomForm = ({onChangeRoomData}) => {
   return (
     <Formik
-    initialValues = {{
-      roomNumber: "",
-      totalArea: "",
-      typeOfCleaning: "" ,
-      addWishes: "",
-      terms: false 
-    }}
+    initialValues = {initialValues}
     validationSchema =  {YupShema}
     onSubmit = {onChangeRoomData}
     >

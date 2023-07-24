@@ -28,7 +28,6 @@ function App() {
 	}
 
 	const onChangeRoomData = (values) => {
-		console.log(`onChangeRoomData`)
 		setStep('serviceForm');
 		setRoomData({...roomData, ...values});
 	}

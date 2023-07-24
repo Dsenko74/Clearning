@@ -13,18 +13,21 @@ const YupShema = Yup.object({
       .matches(/^\+?[1-9]\d{9}$/, 'Номер телефона недійсний')
       .required('Номер телефона обов\'язковий')
 
-})
+});
+
+const initialValues = {
+  name: "",
+  phone: "",
+  email: "",
+  date: ""
+}
+
 const UserForm = ({onChangeUserData}) => {
   return (
     <Formik
-      initialValues = {{
-        name: "",
-        phone: "",
-        email: "",
-        date: ""
-      }}
+      initialValues = {initialValues}
       validationSchema = {YupShema}
-      onSubmit = {values => onChangeUserData(values)}
+      onSubmit={onChangeUserData}
     >
       <Form className="form">  
         <h2>Заповніть ваші дані</h2>
