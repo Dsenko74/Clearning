@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
 import { Formik, Form, } from 'formik';
 import * as Yup from 'yup'
 import MyTextInput from '../MyTextInput';
-import i18n from '../locales/i18n';
 import { useTranslation } from 'react-i18next'
 
 const initialValues = {
@@ -12,16 +10,8 @@ const initialValues = {
   date: ""
 }
 
-const YupShema = (lng) => {
-  const { t, i18n } = useTranslation();
-  
-  useEffect(() => {
-    changeLanguage(lng)
-    }, [lng]);
-
-  const changeLanguage = (value) => {
-    i18n.changeLanguage(value);
-  };
+const YupShema = () => {
+   const { t } = useTranslation();
   return Yup.object({
     name: Yup.string()
       .required(t("required"))
@@ -35,21 +25,13 @@ const YupShema = (lng) => {
   })
 }
 
-const UserForm = ({lng, onChangeUserData}) => {
-  const { t, i18n } = useTranslation();
-  
-  useEffect(() => {
-    changeLanguage(lng)
-    }, [lng]);
-
-  const changeLanguage = (value) => {
-    i18n.changeLanguage(value);
-  };
+const UserForm = ({onChangeUserData}) => {
+  const { t } = useTranslation();
   return (
     <Formik
       initialValues = {initialValues}
-      validationSchema = {YupShema(lng)}
-      onSubmit = {values => onChangeUserData(values)}
+      validationSchema = {YupShema()}
+      onSubmit = {onChangeUserData}
     >
       <Form className="form">  
         <h2>{t("fillDetails")}</h2>

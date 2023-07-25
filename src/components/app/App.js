@@ -1,16 +1,17 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import Header from '../Header';
-import  Initial  from '../Initital';
-import  RoomForm  from '../RoomForm';
-import  ServiceForm  from '../ServicesForm';
-import 	UserForm  from '../UserForm';
-import  Finalize  from '../Finalize';
+import Initial from '../Initital';
+import RoomForm from '../RoomForm';
+import ServiceForm from '../ServicesForm';
+import UserForm from '../UserForm';
+import Finalize from '../Finalize';
+import i18n from '../locales/i18n';
 import getCurrencyValue from '../servise/GetCurrencyValue';
 import './App.scss';
 
 function App() {
 	const [step, setStep] = useState('initial');
-	const [lng, setLanguage] = useState('en');
+	const [lng, setLng] = useState('en');
 	const [privacyPolicy, setPrivacyPolicy] = useState(false);
 	const [roomData, setRoomData] = useState({});
 	const [serviceData, setServiceData] = useState({});
@@ -44,28 +45,23 @@ function App() {
 		setUserData({...userData, ...values});
 	}, [userData])
 	
-	const RenderComponent = useMemo(() => {
+	const renderComponent = useMemo(() => {
 		switch(step) {
 			case 'initial':
 				return <Initial 
-									lng={lng}
 									onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
 			case 'roomForm': 
 				return <RoomForm 
-									lng={lng}
 									onChangeRoomData={onChangeRoomData}/>;
 			case 'serviceForm':
 				return <ServiceForm 
-									lng={lng}
 									onChangeServiceData={onChangeServiceData}/>;
 			case 'userForm'	:
 				return <UserForm 
-									lng={lng}
 									onChangeUserData={onChangeUserData}/>;
 			case 'finalize'	:
 				return <Finalize 
 									setStep={setStep}
-									lng={lng}
 									roomData={roomData}
 									serviceData={serviceData}
 									userData={userData}
@@ -74,9 +70,7 @@ function App() {
 									/>;
 			default:
 				return <Initial 
-									lng={lng}
-									setCurrency={setCurrency}
-									setStep={setStep}/>;
+									onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
 		}
 	}, [step, lng]);
 
@@ -84,8 +78,8 @@ function App() {
 		<div className="App">
 			<Header 
 				lng={lng} 
-				setLanguage={setLanguage}/>	
-			{RenderComponent}
+				setLng={setLng}/>	
+			{renderComponent}
 		</div>
 	);
 }

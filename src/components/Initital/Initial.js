@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup'
 import  MyCheckbox from '../MyCheckbox';
-import i18n from '../locales/i18n';
 import { useTranslation } from 'react-i18next';
 
 const initialValues = {
@@ -10,16 +8,9 @@ const initialValues = {
   privacyPolicy: false 
 }
 
-const YupShema = (lng) => {
-  const { t, i18n } = useTranslation();
+const YupShema = () => {
+  const { t } = useTranslation();
   
-  useEffect(() => {
-    changeLanguage(lng)
-    }, [lng]);
-
-  const changeLanguage = (value) => {
-    i18n.changeLanguage(value);
-  };
   return Yup.object({
       privacyPolicy: Yup.boolean()
                       .required(t("required"))
@@ -29,17 +20,8 @@ const YupShema = (lng) => {
     });
 }
 
-const Initial = ({lng, onChangePrivacyPolicy, setCurrency}) => {
-  const { t, i18n } = useTranslation();
-  
-  useEffect(() => {
-    changeLanguage(lng)
-    }, [lng]);
- 
-
-  const changeLanguage = (value) => {
-    i18n.changeLanguage(value);
-  };
+const Initial = ({onChangePrivacyPolicy}) => {
+  const { t } = useTranslation();
 
   const handleSubmit = (values) => {
     onChangePrivacyPolicy(values);
@@ -47,10 +29,10 @@ const Initial = ({lng, onChangePrivacyPolicy, setCurrency}) => {
 
   return (
     <Formik
-    initialValues = {initialValues}
-    validationSchema = {YupShema(lng)}
-    onSubmit = {handleSubmit}
-   >
+      initialValues={initialValues}
+      validationSchema={YupShema()}
+      onSubmit={handleSubmit}
+    >
       <Form className="form">  
         <h2>{t("calculate the cost")}</h2>
         <MyCheckbox

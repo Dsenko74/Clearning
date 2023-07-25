@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
 import { Formik, Form, } from 'formik';
 import * as Yup from 'yup'
 import MyTextInput from '../MyTextInput';
-import i18n from '../locales/i18n';
 import { useTranslation } from 'react-i18next'
 
 const initialValues = {
@@ -11,16 +9,8 @@ const initialValues = {
   removePellicle: "",
 };
 
-const YupShema = (lng) => {
-  const { t, i18n } = useTranslation();
-  
-  useEffect(() => {
-    changeLanguage(lng)
-    }, [lng]);
-
-  const changeLanguage = (value) => {
-    i18n.changeLanguage(value);
-  };
+const YupShema = () => {
+  const { t } = useTranslation();
   return Yup.object({
     bathRoomNumder: Yup.number()
             .min(1, t("what clean"))
@@ -37,21 +27,13 @@ const YupShema = (lng) => {
   })
 }
 
-const ServiceForm = ({lng, onChangeServiceData}) => {
-  const { t, i18n } = useTranslation();
-  
-  useEffect(() => {
-    changeLanguage(lng)
-    }, [lng]);
-
-  const changeLanguage = (value) => {
-    i18n.changeLanguage(value);
-  };
+const ServiceForm = ({onChangeServiceData}) => {
+  const { t } = useTranslation();
   return (
     <Formik
-    initialValues = {initialValues}
-    validationSchema = {YupShema(lng)}
-    onSubmit = {onChangeServiceData}
+    initialValues={initialValues}
+    validationSchema={YupShema()}
+    onSubmit={onChangeServiceData}
     >
       {formikProps => (
         <Form className="form">  

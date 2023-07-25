@@ -1,24 +1,15 @@
 import { Formik, Form } from 'formik';
-import { useEffect, useMemo} from 'react';
+import { useMemo} from 'react';
 import * as Yup from 'yup'
 import  MyCheckbox  from '../MyCheckbox';
-import i18n from '../locales/i18n';
 import { useTranslation } from 'react-i18next'
 
 const initialValues = {
   privacyPolicy: false 
 };
 
-const YupShema = (lng) => {
-  const { t, i18n } = useTranslation();
-  
-  useEffect(() => {
-    changeLanguage(lng)
-    }, [lng]);
-
-  const changeLanguage = (value) => {
-    i18n.changeLanguage(value);
-  };
+const YupShema = () => {
+  const { t } = useTranslation();
   return Yup.object({
     privacyPolicy: Yup.boolean()
                     .required(t("consent is required"))
@@ -30,20 +21,12 @@ const Finalize = ({lng, setStep, roomData, serviceData, userData, currency, curr
   const  totalResult = useMemo(() => serviceData.bathRoomNumder * 150 + serviceData.removePellicle * 200 + serviceData.windowNumber *250, [serviceData]);
   const totalResultEquivalent = useMemo(() => (Math.round(totalResult * 100/ (currencyValue.filter(item => item.cc === currency))[0].rate)) / 100, [currency, totalResult, currencyValue]);
   
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   
-  useEffect(() => {
-    changeLanguage(lng)
-    }, [lng]);
-
-  const changeLanguage = (value) => {
-    i18n.changeLanguage(value);
-  };
-
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={YupShema(lng)}
+      validationSchema={YupShema()}
       onSubmit={() => setStep('initial')}
     >
       <Form className="form">  

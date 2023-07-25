@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 import MyTextInput from '../MyTextInput';
 import MyCheckbox from '../MyCheckbox';
-import i18n from '../locales/i18n';
 import { useTranslation } from 'react-i18next';
 
 const initialValues = {
@@ -14,16 +12,9 @@ const initialValues = {
   terms: false 
 };
 
-const YupShema = (lng) => {
-  const { t, i18n } = useTranslation();
+const YupShema = () => {
+  const { t } = useTranslation();
   
-  useEffect(() => {
-    changeLanguage(lng)
-    }, [lng]);
-
-  const changeLanguage = (value) => {
-    i18n.changeLanguage(value);
-  };
   return  Yup.object({
       roomNumber: Yup.number()
               .min(1, t("what clean"))
@@ -44,22 +35,13 @@ const YupShema = (lng) => {
         });
 };
 
-const RoomForm = ({lng, onChangeRoomData}) => {
-  const { t, i18n } = useTranslation();
-  
-  useEffect(() => {
-    changeLanguage(lng)
-    }, [lng]);
-
-  const changeLanguage = (value) => {
-    i18n.changeLanguage(value);
-  };
-
+const RoomForm = ({onChangeRoomData}) => {
+  const { t } = useTranslation();
   return (
     <Formik
-    initialValues = {initialValues}
-    validationSchema =  {YupShema(lng)}// подумати над своєчасним оновленням lng
-    onSubmit = {onChangeRoomData}
+      initialValues={initialValues}
+      validationSchema={YupShema()}
+      onSubmit={onChangeRoomData}
     >
       <Form className="form">  
         <h2>{t("fill parameters")}</h2>
