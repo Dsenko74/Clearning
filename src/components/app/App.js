@@ -1,19 +1,22 @@
-import { useState, useEffect } from 'react'
-import  Initial  from '../Initital';
-import  RoomForm  from '../RoomForm';
-import  ServiceForm  from '../ServicesForm';
-import 	UserForm  from '../UserForm';
-import  Finalize  from '../Finalize';
+import { useState, useEffect, useCallback, useMemo } from 'react'
+import Header from '../Header';
+import Initial from '../Initital';
+import RoomForm from '../RoomForm';
+import ServiceForm from '../ServicesForm';
+import UserForm from '../UserForm';
+import Finalize from '../Finalize';
+import i18n from '../locales/i18n';
 import getCurrencyValue from '../servise/GetCurrencyValue';
 import './App.scss';
 
 function App() {
 	const [step, setStep] = useState('initial');
+	const [lng, setLng] = useState('en');
 	const [privacyPolicy, setPrivacyPolicy] = useState(false);
 	const [roomData, setRoomData] = useState({});
 	const [serviceData, setServiceData] = useState({});
 	const [userData, setUserData] = useState({});
-	const [currency, setCurrency] = useState('');
+	const [currency, setCurrency] = useState({});
 	const [currencyValue, setCurrencyValue] = useState({});
 
 	useEffect(() => {
@@ -21,65 +24,62 @@ function App() {
 			.then(res => setCurrencyValue(res));
 	}, []);
 
-	const onChangePrivacyPolicy = (values) => {
+	const onChangePrivacyPolicy = useCallback((values) => {
 		setStep('roomForm');
 		setPrivacyPolicy(values.privacyPolicy);
 		setCurrency(values.typeOfCurrency)
-	}
+	}, []);
 
-	const onChangeRoomData = (values) => {
+	const onChangeRoomData = useCallback((values) => {
 		setStep('serviceForm');
 		setRoomData({...roomData, ...values});
-	}
+	}, [roomData]);
 
-	const onChangeServiceData = (values) => {
+	const onChangeServiceData = useCallback((values) => {
 		setStep('userForm');
 		setServiceData({...serviceData, ...values});
-	}
+	}, [serviceData])
 
-	const onChangeUserData = (values) => {
+	const onChangeUserData = useCallback((values) => {
 		setStep('finalize');
 		setUserData({...userData, ...values});
-	}
-
-	let renderItem;
+	}, [userData])
+	
+	const renderComponent = useMemo(() => {
 		switch(step) {
 			case 'initial':
-				renderItem = <Initial 
-												onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
-				break;
+				return <Initial 
+									onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
 			case 'roomForm': 
-				renderItem = <RoomForm 
-												onChangeRoomData={onChangeRoomData}/>;
-				break;
+				return <RoomForm 
+									onChangeRoomData={onChangeRoomData}/>;
 			case 'serviceForm':
-				renderItem = <ServiceForm 
-												onChangeServiceData={onChangeServiceData}/>;
-				break;
+				return <ServiceForm 
+									onChangeServiceData={onChangeServiceData}/>;
 			case 'userForm'	:
-				renderItem = <UserForm 
-												onChangeUserData={onChangeUserData}/>;
-				break;
+				return <UserForm 
+									onChangeUserData={onChangeUserData}/>;
 			case 'finalize'	:
-				renderItem = <Finalize 
-								setStep={setStep}
-								roomData={roomData}
-								serviceData={serviceData}
-								userData={userData}
-								currency={currency}
-								currencyValue={currencyValue}
-								/>;
-				break;	
+				return <Finalize 
+									setStep={setStep}
+									roomData={roomData}
+									serviceData={serviceData}
+									userData={userData}
+									currency={currency}
+									currencyValue={currencyValue}
+									/>;
 			default:
-				renderItem = <Initial 
-								setCurrency={setCurrency}
-								setStep={setStep}/>;
-				break;
+				return <Initial 
+									onChangePrivacyPolicy={onChangePrivacyPolicy}/>;
 		}
+	}, [step, lng]);
 
 	return (
 		<div className="App">
-			{renderItem}
+			<Header 
+				lng={lng} 
+				setLng={setLng}/>	
+			{renderComponent}
 		</div>
 	);
 }
